@@ -11,7 +11,7 @@ RUN chmod +r /usr/app/jmx_prometheus_javaagent.jar
 
 #RUN mkdir /opt/jmx_prometheus_httpserver && wget 'http://central.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_httpserver/0.6/jmx_prometheus_httpserver-0.6-jar-with-dependencies.jar' -O /opt/jmx_prometheus_httpserver/jmx_prometheus_httpserver.jar
 
-#COPY entrypoint.sh /opt/entrypoint.sh
+COPY entrypoint.sh /opt/entrypoint.sh
 #ENTRYPOINT ["/opt/entrypoint.sh"]
 
 #COPY config.yaml /etc/jmx_exporter/config.yaml
