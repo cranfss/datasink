@@ -1,17 +1,19 @@
+# Builds an image for Apache Kafka 1.0.0.
+#
+# Added support for Prometheus java agent 0.10
+
+
 FROM confluentinc/cp-kafka:4.0.0
 
-ENV EXTRA_ARGS="-javaagent:/usr/local/share/jars/jmx_prometheus_javaagent-0.10.jar=9400:/etc/jmx_exporter/jmx_exporter.yaml "
+RUN mkdir /kafka /kafka/data /kafka/logs
+#ENV EXTRA_ARGS="-javaagent:/kafka/jmx_exporter/jmx_prometheus_javaagent-0.10.jar=9400:/kafka/jmx_exporter/jmx_exporter.yaml"
 
 # prometheus
 #ADD prometheus-config.yml /usr/app/prometheus-config.yml
-ADD http://central.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.10/jmx_prometheus_javaagent-0.10.jar /usr/app/jmx_prometheus_javaagent.jar
-RUN chmod +r /usr/app/jmx_prometheus_javaagent.jar
+#ADD http://central.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.10/jmx_prometheus_javaagent-0.10.jar /kafka/jmx_exporter/jmx_prometheus_javaagent-0.10.jar
+#RUN chmod +r /kafka/jmx_exporter/jmx_prometheus_javaagent-0.10.jar
 
-# http://central.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.10/jmx_prometheus_javaagent-0.10.jar
-
-#RUN mkdir /opt/jmx_prometheus_httpserver && wget 'http://central.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_httpserver/0.6/jmx_prometheus_httpserver-0.6-jar-with-dependencies.jar' -O /opt/jmx_prometheus_httpserver/jmx_prometheus_httpserver.jar
-
-COPY entrypoint.sh /opt/entrypoint.sh
+#COPY entrypoint.sh /opt/entrypoint.sh
 #ENTRYPOINT ["/opt/entrypoint.sh"]
 
 #COPY config.yaml /etc/jmx_exporter/config.yaml
