@@ -5,6 +5,8 @@ pipeline {
        * This assumes that a "Dockerfile" is in the current workspace
        * A new container will be build with the args below and the pipeline will run inside that container.
        */
+      dir 'docker'
+      additionalBuildArgs  '--build-arg version=1.0.2'
       args "-v /tmp:/tmp -p 8000:8000"
     }
   }
