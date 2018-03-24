@@ -11,7 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("datasinkio:${env.BUILD_ID}", "./docker")
+        app = docker.build("datasinkio/datasinkio:${env.BUILD_ID}", "./docker")
     }
 
     stage('Test image') {
