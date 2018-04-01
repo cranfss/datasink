@@ -1,37 +1,43 @@
 pipeline {
+    agent any
+    states {
+        stage('Clone repository') {
+            /* Let's make sure we have the repository cloned to our workspace */
 
-    stage('Clone repository') {
-        /* Let's make sure we have the repository cloned to our workspace */
+            checkout scm
+        }
 
-        checkout scm
-    }
+        stage('Build image') {
+            /* This builds the actual image; synonymous to
+             * docker build on the command line */
 
-    stage('Build image') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
-
-        sh 'echo "*****hello*************"'
-        app = docker.build("datasinkio/datasinkio:${env.BUILD_ID}", "./docker")
+            app = docker.build("datasinkio/datasinkio:${env.BUILD_ID}", "./docker")
     	environment {
     		DOCKERHUB_PW = credentials('dockerhub-pw')
-            CC = 'clang'
     	}
-        sh 'printenv'
-    }
-    stage('Test image') {
-        /* Ideally, we would run a test framework against our image.
-         * For this example, we're using a Volkswagen-type approach ;-) */
-	
-    }
+        }
+        stage('Test image') {
+            /* Ideally, we would run a test framework against our image.
+             * For this example, we're using a Volkswagen-type approach ;-) */
+    	sh 'echo "******************"'
+        withEnv(['MYTOOL_HOME=/usr/local/mytool'])
+            sh 'echo $DOCKERHUB_PW'
 
-    stage('Push image') {
-        /* Finally, we'll push the image with two tags:
-         * First, the incremental build number from Jenkins
-         * Second, the 'latest' tag.
-         * Pushing multiple tags is cheap, as all the layers are reused. */
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
+
+            app.inside {
+                sh 'echo "Tests passed"'
+            }
+        }
+
+        stage('Push image') {
+            /* Finally, we'll push the image with two tags:
+             * First, the incremental build number from Jenkins
+             * Second, the 'latest' tag.
+             * Pushing multiple tags is cheap, as all the layers are reused. */
+            docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                app.push("${env.BUILD_NUMBER}")
+                app.push("latest")
+            }
         }
     }
 }
