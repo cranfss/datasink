@@ -12,6 +12,9 @@ node {
          * docker build on the command line */
 
         app = docker.build("datasinkio/datasinkio:${env.BUILD_ID}", "./docker")
+	withCredentials([string(credentialsId: '', variable: 'dockerhub-pw')]) {
+            sh 'echo pwd=$dockerhub-pw'
+        }
     }
 
     stage('Test image') {
