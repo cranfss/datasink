@@ -1,9 +1,13 @@
 pipeline {
     agent any
-    states {
+    
+    environment {
+            DOCKERHUB_PW = credentials('dockerhub-pw')
+    }
+    stages {
         stage('Clone repository') {
             /* Let's make sure we have the repository cloned to our workspace */
-
+            sh 'printenv'
             checkout scm
         }
 
@@ -11,22 +15,13 @@ pipeline {
             /* This builds the actual image; synonymous to
              * docker build on the command line */
 
-            app = docker.build("datasinkio/datasinkio:${env.BUILD_ID}", "./docker")
-    	environment {
-    		DOCKERHUB_PW = credentials('dockerhub-pw')
-    	}
+            docker.build("datasinkio/datasinkio:${env.BUILD_ID}", "./docker")
+    	
         }
         stage('Test image') {
             /* Ideally, we would run a test framework against our image.
              * For this example, we're using a Volkswagen-type approach ;-) */
-    	sh 'echo "******************"'
-        withEnv(['MYTOOL_HOME=/usr/local/mytool'])
-            sh 'echo $DOCKERHUB_PW'
 
-
-            app.inside {
-                sh 'echo "Tests passed"'
-            }
         }
 
         stage('Push image') {
