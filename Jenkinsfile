@@ -14,6 +14,7 @@ node {
         app = docker.build("datasinkio/datasinkio:${env.BUILD_ID}", "./docker")
 	environment {
 		DOCKERHUB_PW = credentials('dockerhub-pw')
+		sh "******************"
 		sh 'echo pwd=$DOCKERHUB_PW'
 	}
     }
