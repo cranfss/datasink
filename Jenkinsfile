@@ -7,15 +7,17 @@ pipeline {
     stages {
         stage('Clone repository') {
             /* Let's make sure we have the repository cloned to our workspace */
-            sh 'printenv'
-            checkout scm
+            steps {
+                sh 'printenv'
+                checkout scm
+            }
         }
-
         stage('Build image') {
             /* This builds the actual image; synonymous to
              * docker build on the command line */
-
-            docker.build("datasinkio/datasinkio:${env.BUILD_ID}", "./docker")
+            steps { 
+                docker.build("datasinkio/datasinkio:${env.BUILD_ID}", "./docker")
+            }
     	
         }
         stage('Test image') {
