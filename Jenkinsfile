@@ -14,10 +14,10 @@ pipeline {
         }
         stage('Build image') {
             /* This builds the actual image; synonymous to
-             * docker build on the command line */
+             * docker build on the command line 
             steps { 
                 docker.build("datasinkio/datasinkio:${env.BUILD_ID}", "./docker")
-            }
+            }*/
     	
         }
         stage('Test image') {
