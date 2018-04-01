@@ -1,4 +1,4 @@
-node {
+pipeline {
     def app
 
     stage('Clone repository') {
@@ -11,16 +11,21 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
+        sh 'echo "*****hello*************"'
         app = docker.build("datasinkio/datasinkio:${env.BUILD_ID}", "./docker")
-	environment {
-		DOCKERHUB_PW = credentials('dockerhub-pw')
-	}
+    	environment {
+    		DOCKERHUB_PW = credentials('dockerhub-pw')
+            CC = 'clang'
+    	}
+        sh 'printenv'
     }
     stage('Test image') {
         /* Ideally, we would run a test framework against our image.
          * For this example, we're using a Volkswagen-type approach ;-) */
-	sh 'echo "******************"'
-        sh 'echo $DOCKERHUB_PW'
+	
+
+
+
         app.inside {
             sh 'echo "Tests passed"'
         }
