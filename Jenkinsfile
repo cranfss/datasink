@@ -14,15 +14,13 @@ node {
         app = docker.build("datasinkio/datasinkio:${env.BUILD_ID}", "./docker")
 	environment {
 		DOCKERHUB_PW = credentials('dockerhub-pw')
-		sh "******************"
-		sh 'echo pwd=$DOCKERHUB_PW'
 	}
     }
-
     stage('Test image') {
         /* Ideally, we would run a test framework against our image.
          * For this example, we're using a Volkswagen-type approach ;-) */
-
+	sh "******************"
+        sh 'echo $DOCKERHUB_PW'
         app.inside {
             sh 'echo "Tests passed"'
         }
