@@ -19,7 +19,7 @@ node {
     stage('Test image') {
         /* Ideally, we would run a test framework against our image.
          * For this example, we're using a Volkswagen-type approach ;-) */
-	sh "******************"
+	sh 'echo "******************"'
         sh 'echo $DOCKERHUB_PW'
         app.inside {
             sh 'echo "Tests passed"'
