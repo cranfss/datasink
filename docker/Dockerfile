@@ -19,7 +19,7 @@ ENV KAFKA_OPTS="-javaagent:/kafka/jmx_exporter/jmx_prometheus_javaagent-0.10.jar
 
 # prometheus
 ADD ./jmx_exporter.yaml /kafka/jmx_exporter/jmx_exporter.yaml
-ADD ../libs/jmx_prometheus_javaagent-0.10.jar /kafka/jmx_exporter/jmx_prometheus_javaagent-0.10.jar
+ADD ./jmx_prometheus_javaagent-0.10.jar /kafka/jmx_exporter/jmx_prometheus_javaagent-0.10.jar
 
 RUN chmod +r /kafka/jmx_exporter/jmx_exporter.yaml
 RUN chmod +r /kafka/jmx_exporter/jmx_prometheus_javaagent-0.10.jar
