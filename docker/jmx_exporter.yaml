@@ -1,3 +1,4 @@
+hostPort: 127.0.0.1:9200
 lowercaseOutputName: true
 rules:
 - pattern : kafka.cluster<type=(.+), name=(.+), topic=(.+), partition=(.+)><>Value
