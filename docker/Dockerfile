@@ -9,8 +9,8 @@ RUN mkdir /kafka /kafka/data /kafka/logs /kafka/jmx_exporter /kafka/libs
 ENV KAFKA_OPTS="-javaagent:/kafka/jmx_exporter/jmx_prometheus_javaagent-0.10.jar=9200:/kafka/jmx_exporter/jmx_exporter.yaml"
 
 #kafkacat and verify-release.sh for cluster verification
-ADD ./kafkacat /kafka/lib/kafkacat
-ADD ./verify-release.sh /kafka/lib/verify-release.sh
+ADD ./kafkacat /kafka/libs/kafkacat
+ADD ./verify-release.sh /kafka/libs/verify-release.sh
 
 RUN chmod +x /kafka/libs/kafkacat
 RUN chmod +x /kafka/libs/verify-release.sh
