@@ -1,7 +1,7 @@
 # Builds an image for Apache Kafka 1.0.0.
 #
 
-FROM confluentinc/cp-kafka:4.0.0
+FROM confluentinc/cp-kafka:4.0.1-1
 
 RUN mkdir /kafka /kafka/data /kafka/logs /kafka/jmx_exporter /kafka/libs
 
