@@ -8,6 +8,15 @@ RUN mkdir /kafka /kafka/data /kafka/logs /kafka/jmx_exporter /kafka/libs
 #Port 9200 will be scraped prometheus
 ENV KAFKA_OPTS="-javaagent:/kafka/jmx_exporter/jmx_prometheus_javaagent-0.10.jar=9200:/kafka/jmx_exporter/jmx_exporter.yaml"
 
+#add external host
+ADD ./kubectl /kafka/libs/kubectl
+ADD ./server.properties /etc/kafka/server.properties
+ADD ./log4j.properties /etc/kafka/log4j.properties
+
+RUN chmod +x /kafka/libs/kubectl
+RUN chmod +rw /etc/kafka/server.properties
+RUN chmod +r /etc/kafka/log4j.properties
+
 #kafkacat and verify-release.sh for cluster verification
 ADD ./kafkacat /kafka/libs/kafkacat
 ADD ./verify-release.sh /kafka/libs/verify-release.sh
