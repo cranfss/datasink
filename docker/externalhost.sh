@@ -14,3 +14,5 @@ else
 	sed -i "s/advertised.listeners=/advertised.listeners=EXTERNAL://${OUTSIDE_HOST}:${OUTSIDE_PORT}/" /etc/kafka/server.properties
 	ANNOTATIONS="$ANNOTATIONS kafka-listener-outside-host=$OUTSIDE_HOST kafka-listener-outside-port=$OUTSIDE_PORT"
 fi
+
+exec "$@"

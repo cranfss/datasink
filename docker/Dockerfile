@@ -12,6 +12,7 @@ ENV KAFKA_OPTS="-javaagent:/kafka/jmx_exporter/jmx_prometheus_javaagent-0.10.jar
 ADD ./kubectl /kafka/libs/kubectl
 ADD ./server.properties /etc/kafka/server.properties
 ADD ./log4j.properties /etc/kafka/log4j.properties
+ADD ./externalhost.sh /kafka/libs/externalhost.sh
 
 RUN chmod +x /kafka/libs/kubectl
 RUN chmod +rw /etc/kafka/server.properties
@@ -30,3 +31,5 @@ ADD ./jmx_prometheus_javaagent-0.10.jar /kafka/jmx_exporter/jmx_prometheus_javaa
 
 RUN chmod +r /kafka/jmx_exporter/jmx_exporter.yaml
 RUN chmod +r /kafka/jmx_exporter/jmx_prometheus_javaagent-0.10.jar
+
+ENTRYPOINT ["/kafka/libs/externalhost.sh"]
