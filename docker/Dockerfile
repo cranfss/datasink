@@ -13,11 +13,13 @@ ADD ./kubectl /kafka/libs/kubectl
 ADD ./server.properties /etc/kafka/server.properties
 ADD ./log4j.properties /etc/kafka/log4j.properties
 ADD ./externalhost.sh /kafka/libs/externalhost.sh
+ADD ./configure /etc/confluent/docker/configure
 
 RUN chmod +x /kafka/libs/kubectl
 RUN chmod +rw /etc/kafka/server.properties
 RUN chmod +r /etc/kafka/log4j.properties
 RUN chmod +x /kafka/libs/externalhost.sh
+RUN chmod +r /etc/confluent/docker/configure
 
 #kafkacat and verify-release.sh for cluster verification
 ADD ./kafkacat /kafka/libs/kafkacat
