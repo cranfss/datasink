@@ -2,6 +2,7 @@
 
 set -x
 
+echo "Running externalhost.sh"
 
 ANNOTATIONS=""
 KAFKA_BROKER_ID=${HOSTNAME##*-}
@@ -14,5 +15,7 @@ else
 	sed -i "s|advertised.listeners=|advertised.listeners=PLAINTEXT://${POD_IP}:9092,EXTERNAL://${OUTSIDE_HOST}:${OUTSIDE_PORT}|" /etc/kafka/server.properties
 	ANNOTATIONS="$ANNOTATIONS kafka-listener-outside-host=$OUTSIDE_HOST kafka-listener-outside-port=$OUTSIDE_PORT"
 fi
+
+echo "Exiting externalhost.sh"
 
 exec "$@"
