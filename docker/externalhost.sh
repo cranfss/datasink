@@ -11,7 +11,7 @@ if [ $? -ne 0 ]; then
 	echo "Outside (i.e. cluster-external access) host lookup command failed"
 else
 	OUTSIDE_PORT=3109${KAFKA_BROKER_ID}
-	sed -i "s/advertised.listeners=/advertised.listeners=EXTERNAL://${OUTSIDE_HOST}:${OUTSIDE_PORT}/" /etc/kafka/server.properties
+	sed -i "s|advertised.listeners=|advertised.listeners=EXTERNAL://${OUTSIDE_HOST}:${OUTSIDE_PORT}|" /etc/kafka/server.properties
 	ANNOTATIONS="$ANNOTATIONS kafka-listener-outside-host=$OUTSIDE_HOST kafka-listener-outside-port=$OUTSIDE_PORT"
 fi
 
