@@ -9,11 +9,12 @@ RUN mkdir /kafka /kafka/data /kafka/logs /kafka/jmx_exporter /kafka/libs
 
 #Port 9200 will be scraped prometheus
 ENV KAFKA_OPTS="-javaagent:/kafka/jmx_exporter/jmx_prometheus_javaagent-0.10.jar=9200:/kafka/jmx_exporter/jmx_exporter.yaml"
+ENV KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:/kafka/libs/log4j.properties"
 
 #add external host
 ADD ./kubectl /kafka/libs/kubectl
 ADD ./server.properties /etc/kafka/server.properties
-ADD ./log4j.properties /etc/kafka/log4j.properties
+ADD ./log4j.properties /kafka/libs/log4j.properties
 ADD ./externalhost.sh /kafka/libs/externalhost.sh
 
 RUN chmod +x /kafka/libs/kubectl
