@@ -1,7 +1,7 @@
 # Builds an image for Apache Kafka 1.0.0.
 #
 
-FROM confluentinc/cp-kafka:4.0.1-1
+FROM confluentinc/cp-kafka:4.1.0-1
 
 RUN echo 'Starting Container'
 
@@ -9,7 +9,7 @@ RUN mkdir /kafka /kafka/data /kafka/logs /kafka/jmx_exporter /kafka/libs
 
 #Port 9200 will be scraped prometheus
 ENV KAFKA_OPTS="-javaagent:/kafka/jmx_exporter/jmx_prometheus_javaagent-0.10.jar=9200:/kafka/jmx_exporter/jmx_exporter.yaml"
-ENV KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:/kafka/libs/log4j.properties"
+#ENV KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:/kafka/libs/log4j.properties"
 
 #add external host
 ADD ./kubectl /kafka/libs/kubectl
