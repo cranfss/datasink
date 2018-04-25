@@ -36,6 +36,3 @@ ADD ./jmx_prometheus_javaagent-0.10.jar /kafka/jmx_exporter/jmx_prometheus_javaa
 RUN chmod +r /kafka/jmx_exporter/jmx_exporter.yaml
 RUN chmod +r /kafka/jmx_exporter/jmx_prometheus_javaagent-0.10.jar
 
-RUN echo 'Before ENTRYPOINT'
-ENTRYPOINT ["/kafka/libs/externalhost.sh"]
-RUN echo 'After ENTRYPOINT'
