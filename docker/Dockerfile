@@ -1,7 +1,7 @@
 # Builds an image for Apache Kafka 1.0.0.
 #
 
-FROM confluentinc/cp-kafka:4.1.0-1
+FROM confluentinc/cp-kafka:4.1.1
 
 RUN echo 'Starting Container'
 
